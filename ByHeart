@@ -23,8 +23,10 @@ model.compile(optimizer='sgd',loss='mean_squared_error')
 
 # Model Training
 
-model.fit(x,y,epochs=500)
+history = model.fit(x,y,epochs=500)
 # epochs=int
+
+print(history.epoch, history.history['acc'][-1])
 
 # Callbacks
 class myCallback(tf.keras.callbacks.Callback):
