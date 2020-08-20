@@ -1,0 +1,26 @@
+# Model Preparation
+
+model = keras.Sequential([keras.layers.Dense(units=1,input_shape=[1])])
+# Sequential takes list of layers
+# layers =[Dense]
+# Dense Layer :  units=int, input_shape=list
+
+# Model Compilation
+
+model.compile(optimizer='sgd',loss='mean_squared_error')
+# optimizer: [sgd]
+# loss: [mean_squared_error]
+
+# Model Training
+
+model.fit(x,y,epoch=500)
+# epoch=int
+
+
+# Define Data
+a = np.array([],dtype=float)
+
+# Model Predict
+
+model.predict(xtest)
+
