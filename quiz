@@ -1,3 +1,45 @@
+Learnings:  
+1. Why standarization?
+Case 1: Diff variables have diff ranges:
+        - Features with larger values will dominate loss
+Case 2: Diff variables have same range
+        - The difference is that loss is decreasing at a faster rate then the case where standarization is not done
+        Eg: With Standarization
+            Epoch 1/5
+            1875/1875 [==============================] - 8s 4ms/step - loss: 0.2024
+            Epoch 2/5
+            1875/1875 [==============================] - 8s 4ms/step - loss: 0.0808
+            Epoch 3/5
+            1875/1875 [==============================] - 8s 4ms/step - loss: 0.0533
+            Epoch 4/5
+            1875/1875 [==============================] - 8s 4ms/step - loss: 0.0368
+            Epoch 5/5
+            1875/1875 [==============================] - 8s 4ms/step - loss: 0.0280
+            313/313 [==============================] - 1s 2ms/step - loss: 0.0651
+            [1.2036349e-08 1.2807031e-08 8.8406367e-08 9.3468443e-05 1.5356870e-11 8.5729539e-08 2.4395022e-11 9.9989855e-01 3.2190380e-07 7.3837341e-06]
+            7
+          Eg: Without Standarization
+              Epoch 1/5
+              1875/1875 [==============================] - 8s 4ms/step - loss: 2.4753
+              Epoch 2/5
+              1875/1875 [==============================] - 8s 4ms/step - loss: 0.3192
+              Epoch 3/5
+              1875/1875 [==============================] - 9s 5ms/step - loss: 0.2990
+              Epoch 4/5
+              1875/1875 [==============================] - 7s 4ms/step - loss: 0.2446
+              Epoch 5/5
+              1875/1875 [==============================] - 7s 4ms/step - loss: 0.2388
+              313/313 [==============================] - 1s 2ms/step - loss: 0.3455
+              [2.5019048e-32 4.9267075e-12 4.4290942e-12 7.5214140e-14 1.6416640e-19 2.9890408e-21 5.9304127e-31 1.0000000e+00 2.1490184e-22 8.5462005e-19]
+              7
+
+
+
+        
+
+
+
+
 Quiz 1
 
 Answers,rules, labelling data, dense layer - connected neurons,
