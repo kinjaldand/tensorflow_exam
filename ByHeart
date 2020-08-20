@@ -1,26 +1,66 @@
+#Imports
+
+import tensorflow as tf
+import numpy as np
+from tensorflow import keras
+
+
+
 # Model Preparation
 
 model = keras.Sequential([keras.layers.Dense(units=1,input_shape=[1])])
 # Sequential takes list of layers
-# layers =[Dense]
-# Dense Layer :  units=int, input_shape=list
+# layers =[Dense, Flatten]
+# Dense Layer :  units=int, input_shape=list, activation =[tf.nn.relu, tf.nn.softmax]
 
 # Model Compilation
 
 model.compile(optimizer='sgd',loss='mean_squared_error')
-# optimizer: [sgd]
-# loss: [mean_squared_error]
+# optimizer: [sgd,adam]
+# loss: [mean_squared_error,sparse_categorical_crossentropy]
+        [linear regression, multiclass classification]
+# metrics: [accuracy]
 
 # Model Training
 
-model.fit(x,y,epoch=500)
-# epoch=int
+model.fit(x,y,epochs=500)
+# epochs=int
+
+# Callbacks
+class myCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs={}):
+    if(logs.get('loss')<0.4):
+      print("\nReached 60% accuracy so cancelling training!")
+      self.model.stop_training = True
+
+callbacks = myCallback()
+model.fit(x, training_ylabels, epochs=5, callbacks=[callbacks])
+# epochs=int
+# callbacks=list of callbacks
+
 
 
 # Define Data
 a = np.array([],dtype=float)
 
+# datasets
+keras.datasets.mnist
+
 # Model Predict
 
-model.predict(xtest)
+model.predict(xval)
+# Output Shape same as neurons in last layer
+# 1 for regression, no. of classes for classification
+
+# Model Evaluate
+
+model.evaluate(xval,yval)
+# outputs loss and accuracy
+
+
+# Misc
+np.set_printoptions(linewidth=200)
+import matplotlib.pyplot as plt
+plt.imshow(training_images[0])
+
 
