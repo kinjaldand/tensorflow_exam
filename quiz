@@ -33,7 +33,9 @@ Case 2: Diff variables have same range
               [2.5019048e-32 4.9267075e-12 4.4290942e-12 7.5214140e-14 1.6416640e-19 2.9890408e-21 5.9304127e-31 1.0000000e+00 2.1490184e-22 8.5462005e-19]
               7
 
-
+2. Detect Overfitting:
+        1. Diff between training and val accuracy
+        
 
         
 
@@ -51,5 +53,6 @@ What method gets called when an epoch finishes?
 
 What parameter to you set in your fit function to tell it to use callbacks?
 - callbacks=
+
 
 
