@@ -122,6 +122,35 @@ for x in range(0,4):
   axarr[2,x].imshow(f3[0, : , :, CONVOLUTION_NUMBER], cmap='inferno')
   axarr[2,x].grid(False)
 
+
+##---------------- Plot Accuracy and Loss #----------------
+
+#-----------------------------------------------------------
+# Retrieve a list of list results on training and test data
+# sets for each training epoch
+#-----------------------------------------------------------
+acc      = history.history[     'accuracy' ]
+val_acc  = history.history[ 'val_accuracy' ]
+loss     = history.history[    'loss' ]
+val_loss = history.history['val_loss' ]
+
+epochs   = range(len(acc)) # Get number of epochs
+
+#------------------------------------------------
+# Plot training and validation accuracy per epoch
+#------------------------------------------------
+plt.plot  ( epochs,     acc )
+plt.plot  ( epochs, val_acc )
+plt.title ('Training and validation accuracy')
+plt.figure()
+
+#------------------------------------------------
+# Plot training and validation loss per epoch
+#------------------------------------------------
+plt.plot  ( epochs,     loss )
+plt.plot  ( epochs, val_loss )
+plt.title ('Training and validation loss'   )
+
 ##---------------- Misc
 np.set_printoptions(linewidth=200)
 import matplotlib.pyplot as plt
