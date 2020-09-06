@@ -37,7 +37,9 @@ Case 2: Diff variables have same range
         1. Diff between training and val accuracy
         
 
-        
+3. Convolution Output:
+        - Reduced by 2 pixels because convolution starts at pixel (2,2) to (n-1,n-1) in 1..n pixels
+        - Channels last  => Filters last eg: input_shape: (None,28,28,1)  =>Con2d(64,(3,3))  => (None,26,26,64)
 
 
 
@@ -53,6 +55,9 @@ What method gets called when an epoch finishes?
 
 What parameter to you set in your fit function to tell it to use callbacks?
 - callbacks=
+
+Quiz 3
+Convolution: isolate features, reduce size,isolate features, 26*26,13*13, slower
 
 
 
