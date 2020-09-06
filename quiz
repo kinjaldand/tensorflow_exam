@@ -40,6 +40,13 @@ Case 2: Diff variables have same range
 3. Convolution Output:
         - Reduced by 2 pixels because convolution starts at pixel (2,2) to (n-1,n-1) in 1..n pixels
         - Channels last  => Filters last eg: input_shape: (None,28,28,1)  =>Con2d(64,(3,3))  => (None,26,26,64)
+        
+4. Optimizers:
+        sgd : constant learning rate
+        ada, rmsprop, adam : automatically adapt the learning rate during training
+5. Model.fit with generators:
+        #steps_per_epoch : batch_size in "train_generator" =128, total_image_len =1000, steps_per_epoch=math.ciel(1000/128) = 8
+
 
 
 
@@ -58,6 +65,9 @@ What parameter to you set in your fit function to tell it to use callbacks?
 
 Quiz 3
 Convolution: isolate features, reduce size,isolate features, 26*26,13*13, slower
+
+Quiz 4
+directory, rescale,training_size, 3 bytes colour, overfitting training, features different part of frame, less information 
 
 
 
