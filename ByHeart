@@ -13,23 +13,40 @@ training_images=training_images.reshape(60000, 28, 28, 1)
 keras.datasets.mnist
 mnist = tf.keras.datasets.fashion_mnist
 
+##---------------- Data Generators #----------------
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# All images will be rescaled by 1./255
+train_datagen = ImageDataGenerator(rescale=1/255)
+
+# Flow training images in batches of 128 using train_datagen generator
+train_generator = train_datagen.flow_from_directory(
+        '/tmp/horse-or-human/',  # This is the source directory for training images
+        target_size=(300, 300),  # All images will be resized to 150x150
+        batch_size=128,
+        class_mode='binary')  # Since we use binary_crossentropy loss, we need binary labels
+
+
 ##---------------- Model Preparation #--------------------
 
 model = keras.Sequential([keras.layers.Dense(units=1,input_shape=[1])])
 # Sequential takes list of layers
 # layers =[Dense, Flatten,Conv2D]
-# Dense Layer :  units=int, input_shape=tuple, activation =[tf.nn.relu, tf.nn.softmax]
+# Dense Layer :  units=int, input_shape=tuple, activation =[tf.nn.relu, tf.nn.softmax,tf.nn.sigmoid]
 # Conv Layer  :  num_filters=int, kernel_size = tuple, activation =[tf.nn.relu, tf.nn.softmax] , input_shape=tuple
 # MaxPooling2D Layer : pool_size = tuple ,padding = ["same","valid"]
         output_shape = (input_shape - pool_size + 1) / strides)
         padding: "valid" adds no zero padding. "same" adds padding such that if the stride is 1, the output shape is the same as input shape.
 
 ##---------------- Model Compilation #------------------------
+from tensorflow.keras.optimizers import RMSprop
 
 model.compile(optimizer='sgd',loss='mean_squared_error')
-# optimizer: [sgd,adam]
-# loss: [mean_squared_error,sparse_categorical_crossentropy]
-        [linear regression, multiclass classification]
+# optimizer: [sgd,adam,rmsprop,ada,RMSprop(lr=0.001)]
+        sgd : constant learning rate
+        ada, rmsprop, adam : automatically adapt the learning rate during training
+# loss: [mean_squared_error,sparse_categorical_crossentropy,binary_crossentropy]
+        [linear regression, multiclass classification,binary classification]
 # metrics: [accuracy]
 
 ##---------------- Model Training #----------------
@@ -51,8 +68,21 @@ model.fit(x, training_ylabels, epochs=5, callbacks=[callbacks])
 # epochs=int
 # callbacks=list of callbacks
 
+##--------- Model Training with Generators #------------------
+history = model.fit(
+      train_generator,
+      steps_per_epoch=8,  
+      epochs=15,
+      verbose=1)
+#steps_per_epoch : batch_size in "train_generator" =128, total_image_len =1000, steps_per_epoch=math.ciel(1000/128) = 8
 
-
+history = model.fit(
+      train_generator,
+      steps_per_epoch=8,  
+      epochs=15,
+      verbose=1,
+      validation_data = validation_generator,
+      validation_steps=8)
 
 
 ##---------------- Model Predict #----------------
