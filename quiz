@@ -54,6 +54,12 @@ Case 2: Diff variables have same range
         Thus, dropping out can break the neural network out of this potential bad habit!
         
 7. Transfer Learning:
+        Take first n layers, freeze them, add Dense layers on top and train!
+
+8. Text to numbers:
+        Tokenizer: Words to numbers
+        
+        
         
 
 
