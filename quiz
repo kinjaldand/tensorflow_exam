@@ -59,6 +59,23 @@ Case 2: Diff variables have same range
 8. Text to numbers:
         Tokenizer: Words to numbers
         
+9. GlobalAveragePooling1D vs Flatten:
+        Flatten will take a tensor of any shape and transform it into a one dimensional tensor (plus the samples dimension) but keeping all values in the tensor. 
+        For example a tensor (samples, 10, 20, 1) will be flattened to (samples, 10 * 20 * 1).
+
+        GlobalAveragePooling2D does something different. It applies average pooling on the spatial dimensions until each spatial dimension is one, 
+        and leaves other dimensions unchanged. 
+        In this case values are not kept as they are averaged. 
+        For example a tensor (samples, 10, 20, 1) would be output as (samples, 1, 1, 1), assuming the 2nd and 3rd dimensions were spatial (channels last).
+        
+        Flattening is No brainer and it simply converts a multi-dimensional object to one-dimensional by re-arranging the elements.
+
+        While GlobalAveragePooling is a methodology used for better representation of your vector. 
+        It can be 1D/2D/3D. It uses a parser window which moves across the object and pools the data by averaging it (GlobalAveragePooling) or 
+        picking max value (GlobalMaxPooling). Padding is essentially required to take the corner cases into the account.
+
+        Both are used for taking effect of sequencing into account in a simpler way.
+        
         
         
 
