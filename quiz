@@ -46,12 +46,21 @@ Case 2: Diff variables have same range
         ada, rmsprop, adam : automatically adapt the learning rate during training
 5. Model.fit with generators:
         #steps_per_epoch : batch_size in "train_generator" =128, total_image_len =1000, steps_per_epoch=math.ciel(1000/128) = 8
+6. Dropout:
+        The idea behind Dropouts is that they remove a random number of neurons in your neural network. 
+        This works very well for two reasons: 
+                The first is that neighboring neurons often end up with similar weights, which can lead to overfitting, so dropping some out at random can remove this. 
+                The second is that often a neuron can over-weigh the input from a neuron in the previous layer, and can over specialize as a result. 
+        Thus, dropping out can break the neural network out of this potential bad habit!
+        
+7. Transfer Learning:
+        
 
 
 ######################### Strategies ##################
 1. Standarize Data
 2. Implement callbacks for early stopping specially val_accuracy
-3. Regulaziers
+3. Regulaziers/ Dropout ; first verify overfitting from training curves
 4. Augmentation
 5. Plot Acc and loss for train and val set
 
