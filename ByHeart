@@ -43,6 +43,48 @@ train_generator = train_datagen.flow_from_directory(
         batch_size=128,
         class_mode='categorical')  #  multiclass labels
 
+##---------------- Text to Numbers #--------------------
+1. Tokenizer
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+sentences = [
+    'I love my dog',
+    'I love my cat',
+    'You love my dog!',
+    'Do you think my dog is amazing?'
+]
+
+tokenizer = Tokenizer(num_words = 100, oov_token="<OOV>") # num_words : unique words in vocab,oov_token:out_of_vocab 
+tokenizer.fit_on_texts(sentences)
+word_index = tokenizer.word_index   #dict:Word Index =  {'<OOV>': 1, 'my': 2, 'love': 3, 'dog': 4, 'i': 5, 'you': 6, 'cat': 7, 'do': 8, 'think': 9, 'is': 10, 'amazing': 11}
+
+sequences = tokenizer.texts_to_sequences(sentences) #[[5, 3, 2, 4], [5, 3, 2, 7], [6, 3, 2, 4], [8, 6, 9, 2, 4, 10, 11]]
+
+padded = pad_sequences(sequences, maxlen=5) # by default padded at beginning, truncated at beginning if sentence exceeds maxlen , overridden as below
+# padded = pad_sequences(sequences, maxlen=5,padding='post', truncating='post')
+print("\nWord Index = " , word_index)
+print("\nSequences = " , sequences)
+print("\nPadded Sequences:")
+print(padded)
+
+"""
+[[ 0  5  3  2  4]
+ [ 0  5  3  2  7]
+ [ 0  6  3  2  4]
+ [ 9  2  4 10 11]]
+"""
+
+STOPWORDS
+#Stopwords list from https://github.com/Yoast/YoastSEO.js/blob/develop/src/config/stopwords.js
+# Convert it to a Python list and paste it here
+!wget 'https://raw.githubusercontent.com/Yoast/YoastSEO.js/develop/src/config/stopwords.js'
+js = open('stopwords.js','r').read()
+#print(js)
+stopwords = js[js.index('return [') +len('return ['):js.index(']')]
+print(stopwords)
+
+
 ##---------------- Model Preparation #--------------------
 
 model = keras.Sequential([keras.layers.Dense(units=1,input_shape=[1])])
