@@ -35,11 +35,29 @@ Case 2: Diff variables have same range
 
 2. Detect Overfitting:
         1. Diff between training and val accuracy
+
+3. Prevent Overfitting:
+        1. Regulalizer
+        2. Dropout
+        3. Early Stoppage: To save a checkpoint and evaluate how is the NN performing on Test Data
         
+3. L1/l2
+        L2 Penalty: Penalised squared weights:
+                Keeps smaller weights unless error derivative is high.
+                Prevents from fitting sampling error.
+                Smoother Model.
+                For 2 similar inputs, the weight gets distributed.
+        L1 Penalty: Penalise absolute weight:
+                Allows weights to remain large.
 
 3. Convolution Output:
         - Reduced by 2 pixels because convolution starts at pixel (2,2) to (n-1,n-1) in 1..n pixels
         - Channels last  => Filters last eg: input_shape: (None,28,28,1)  =>Con2d(64,(3,3))  => (None,26,26,64)
+        
+4. Comparisons of Activation Functions:
+        - Sigmoid:  Cons: Vanishing Gradient, Not Zero Centred
+        - Tanh: Cons: Vanishing Gradients.
+        - ReLu: Cons: Not Zero Centred
         
 4. Optimizers:
         sgd : constant learning rate
@@ -82,7 +100,7 @@ Case 2: Diff variables have same range
 
 ######################### Strategies ##################
 1. Standarize Data
-2. Implement callbacks for early stopping specially val_accuracy
+2. Implement callbacks for early stopping specially if val_accuracy is decreasing
 3. Regulaziers/ Dropout ; first verify overfitting from training curves
 4. Augmentation
 5. Plot Acc and loss for train and val set
